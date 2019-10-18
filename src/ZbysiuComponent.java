@@ -2,9 +2,9 @@ import java.awt.*;
 
 public class ZbysiuComponent {
     protected String id;
-    protected int iX, iY;
+    int iX, iY;
 
-    public void ZbysiuComponent(int x, int y){
+    ZbysiuComponent(int x, int y){
         iX = x;
         iY = y;
     }

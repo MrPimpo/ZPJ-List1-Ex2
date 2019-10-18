@@ -2,10 +2,11 @@ import java.awt.*;
 
 public class ZbysiuEditTab extends ZbysiuTab {
     private String[][] val;
-    private boolean[][] ok;
     private int editCol, editRow;
-    public ZbysiuEditTab(int cellWidth, int cellHeight) {
+    ZbysiuEditTab(int cellWidth, int cellHeight) {
         super(cellWidth, cellHeight);
+        iX=5;
+        iY=5;
     }
 
     @Override
@@ -14,15 +15,13 @@ public class ZbysiuEditTab extends ZbysiuTab {
         editRow=0;
         matrix = bm;
         val = new String[bm.getN()][bm.getM()];
-        ok = new boolean[bm.getN()][bm.getM()];
         for (int x=0; x<val[0].length; x++)
             for (int y=0; y<val.length; y++) {
                 val[y][x] = "0";
-                ok[y][x] = false;
             }
     }
 
-    public void addChar(char ch){
+    void addChar(char ch){
         String cellEdition = val[editRow][editCol];
         switch (ch) {
             case '1':
@@ -50,7 +49,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
         val[editRow][editCol] = cellEdition;
     }
 
-    public String editNext(String fin){
+    String editNext(String fin){
         //double dFin = Double.parseDouble(fin);
         editCol++;
         if (editCol >= val[0].length) {
@@ -63,7 +62,13 @@ public class ZbysiuEditTab extends ZbysiuTab {
         return val[editRow][editCol];
     }
 
-    public MatrixO getMatrix() { return matrix; }
+    MatrixO getMatrix() {
+        for (int x=0; x<val[0].length; x++)
+            for (int y=0; y<val.length; y++){
+                matrix.set(x,y,Double.parseDouble(val[x][y]));
+            }
+        return matrix;
+    }
     
     @Override
     public void draw(Graphics g){
@@ -74,7 +79,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
             g.drawLine(iX+x*getCellWidth(),iY,iX+x*getCellWidth(),iY+matrix.length*getCellHeight());
 
         for (int y=0; y<matrix.length; y++) {
-            String s = "";
+            String s;
             g.drawLine(iX,iY+y*getCellHeight(),iX+matrix[0].length*getCellWidth(),iY+y*getCellHeight());
             for (int x = 0; x < matrix[y].length; x++){
                 //java.texDecimalFormat df=new java.texDecimalFormat("0.00");

@@ -4,15 +4,14 @@ public class ZbysiuButton extends ZbysiuComponent {
     private int iW, iH;
     private String text;
 
-    public ZbysiuButton(int x, int y, int width, int height, String text){
-        iX = x;
-        iY = y;
+    ZbysiuButton(int x, int y, int width, int height, String text){
+        super(x,y);
         iW = width;
         iH = height;
         this.text = text;
     }
 
-    public boolean intercepts(Point p){
+    boolean intercepts(Point p){
         if (p.x<iX)
             return false;
         if (p.y<iY)
