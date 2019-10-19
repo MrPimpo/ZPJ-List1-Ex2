@@ -62,6 +62,8 @@ public class ZbysiuEditTab extends ZbysiuTab {
             case '9':
                 if (cellEdition.equals("0"))
                     cellEdition = "" + ch;
+                else if (cellEdition.equals("-0"))
+                    cellEdition = "-" + ch;
                 else
                     cellEdition = cellEdition + ch;
                 break;
@@ -73,7 +75,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
                     cellEdition = cellEdition + ".";
                 break;
             case '-':
-                if (cellEdition.isEmpty())
+                if ((cellEdition.isEmpty()) || cellEdition.equals("0"))
                     cellEdition = "-";
                 break;
         }
@@ -95,8 +97,8 @@ public class ZbysiuEditTab extends ZbysiuTab {
 
     @Override
     MatrixO getMatrix() {
-        for (int x=0; x<val[0].length; x++)
-            for (int y=0; y<val.length; y++){
+        for (int x=0; x<val.length; x++)
+            for (int y=0; y<val[0].length; y++){
                 matrix.set(x,y,Double.parseDouble(val[x][y]));
             }
         return matrix;

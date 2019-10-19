@@ -29,6 +29,6 @@ public class ZbysiuTab extends ZbysiuComponent {
 
     @Override
     public void draw(Graphics g){
-        matrix.printBasicMatrix(g,this);
+        matrix.draw(g,this);
     }
 }

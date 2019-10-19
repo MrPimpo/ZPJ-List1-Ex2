@@ -73,6 +73,13 @@ public class MatrixO {
             for (int y=0; y<m; y++){
                 matrixFinal.matrix[x][y] = this.matrix[x][y] + matrixSecnd.matrix[x][y];
             }
+        System.out.println();
+        System.out.println("Dodano macierz: ");
+        printM();
+        System.out.println("Do macierzy:");
+        matrixSecnd.printM();
+        System.out.println("Wynikiem dodawania otrzymano macierz:");
+        matrixFinal.printM();
         return (matrixFinal);
     }
 
@@ -145,7 +152,29 @@ public class MatrixO {
         return det;
     }
 
-    public void printBasicMatrix(Graphics g, ZbysiuTab t){
+    private void printM(){
+        int max=0;
+        for (double[] doubles : matrix) {
+            for (int x = 0; x < matrix[0].length; x++) {
+                java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+                String s = df.format(doubles[x]) + "";
+                if (s.length()>max)
+                    max=s.length();
+            }
+        }
+        for (double[] doubles : matrix) {
+            for (int x = 0; x < matrix[0].length; x++) {
+                java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+                StringBuilder s = new StringBuilder(df.format(doubles[x]) + "");
+                for (int i=0; i<(max-s.length()); i++)
+                    s.insert(0, " ");
+                System.out.print("| " + s + " |");
+            }
+            System.out.println();
+        }
+    }
+
+    public void draw(Graphics g, ZbysiuTab t){
         g.setColor(Color.LIGHT_GRAY);
         g.drawRect(t.getX(),t.getY(),matrix[0].length*t.getCellWidth(),matrix.length*t.getCellHeight());
         for (int x = 1; x < matrix[0].length; x++)
