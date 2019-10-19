@@ -1,9 +1,11 @@
+package Zbysiu;
+
 import javax.swing.*;
 import java.awt.*;
 
-class ZbysiuForm extends JFrame {
+public class ZbysiuForm extends JFrame {
 
-    ZbysiuForm(){
+    public ZbysiuForm(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);

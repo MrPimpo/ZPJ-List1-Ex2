@@ -1,3 +1,7 @@
+package main;
+
+import Zbysiu.ZbysiuTab;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -5,28 +9,28 @@ public class MatrixO {
     private double[][] matrix;
     private int n, m;
 
-    MatrixO(){
+    public MatrixO(){
         Random Roman = new Random();
         this.n = 2 + Roman.nextInt(9);
         this.m = 2 + Roman.nextInt(9);
         matrix = generate(n,m,20);
     }
 
-    MatrixO(int n, int m){
+    public MatrixO(int n, int m){
         this.n = n;
         this.m = m;
         matrix = generate(n,m,30);
     }
 
-    MatrixO(int n, int m, String a){
+    public MatrixO(int n, int m, String a){
         this.n = n;
         this.m = m;
         matrix = generate(n,m,0);
     }
 
-    int getM() { return m; }
-    int getN() { return n; }
-    void set(int x, int y, double val){
+    public int getM() { return m; }
+    public int getN() { return n; }
+    public void set(int x, int y, double val){
         matrix[x][y] = val;
     }
 
@@ -90,11 +94,11 @@ public class MatrixO {
         return (matrixFinal);
     }
 
-    boolean isSquare(){
+    public boolean isSquare(){
         return (n == m);
     }
 
-    double det() {
+    public double det() {
         double det = 0;
 
         if (matrix.length == 1) {
@@ -114,49 +118,49 @@ public class MatrixO {
                 }
             }
 
-            double iloczyn = 1;
+            double product = 1;
             int _i;
 
             for (int i = 0; i < matrix.length; i++) {
                 _i = i;
                 for (int j = 0; j < matrix[0].length; j++) {
-                    iloczyn *= nTab[_i][j];
+                    product *= nTab[_i][j];
                     _i++;
                 }
-                det += iloczyn;
-                iloczyn = 1;
+                det += product;
+                product = 1;
             }
 
-            iloczyn = 1;
+            product = 1;
             for (int i = 0; i < matrix.length; i++) {
                 _i = i;
                 for (int j = matrix[0].length - 1; j >= 0; j--) {
-                    iloczyn *= nTab[_i][j];
+                    product *= nTab[_i][j];
                     _i++;
                 }
-                det -= iloczyn;
-                iloczyn = 1;
+                det -= product;
+                product = 1;
             }
         }
         return det;
     }
 
-    void printBasicMatrix(Graphics g, ZbysiuTab t){
+    public void printBasicMatrix(Graphics g, ZbysiuTab t){
         g.setColor(Color.LIGHT_GRAY);
-        g.drawRect(t.iX,t.iY,matrix[0].length*t.getCellWidth(),matrix.length*t.getCellHeight());
+        g.drawRect(t.getX(),t.getY(),matrix[0].length*t.getCellWidth(),matrix.length*t.getCellHeight());
         for (int x = 1; x < matrix[0].length; x++)
-            g.drawLine(t.iX+x*t.getCellWidth(),t.iY,t.iX+x*t.getCellWidth(),t.iY+matrix.length*t.getCellHeight());
+            g.drawLine(t.getX()+x*t.getCellWidth(),t.getY(),t.getX()+x*t.getCellWidth(),t.getY()+matrix.length*t.getCellHeight());
 
         for (int y=0; y<matrix.length; y++) {
             String s;
-            g.drawLine(t.iX,t.iY+y*t.getCellHeight(),t.iX+matrix[0].length*t.getCellWidth(),t.iY+y*t.getCellHeight());
+            g.drawLine(t.getX(),t.getY()+y*t.getCellHeight(),t.getX()+matrix[0].length*t.getCellWidth(),t.getY()+y*t.getCellHeight());
             for (int x = 0; x < matrix[y].length; x++){
                 //java.text.DecimalFormat df=new java.text.DecimalFormat("0.00");
                 //s=df.format(matrix[y][x])+"";
                 s=matrix[y][x]+"";
                 if (!s.startsWith("-"))
                     s = " "+s;
-                g.drawString(s,t.iX+5+x*t.getCellWidth(),(int)(t.iY+(y+(double)2/3)*t.getCellHeight()));
+                g.drawString(s,t.getX()+5+x*t.getCellWidth(),(int)(t.getY()+(y+(double)2/3)*t.getCellHeight()));
             }
         }
     }

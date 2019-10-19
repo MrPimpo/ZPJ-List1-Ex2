@@ -1,3 +1,5 @@
+package Zbysiu;
+
 import java.awt.*;
 
 public class ZbysiuLabel extends ZbysiuComponent {
@@ -8,7 +10,7 @@ public class ZbysiuLabel extends ZbysiuComponent {
     }
 
     void update(String text) { this.text = text; }
-    public void update(int text) { this.text = Integer.toString(text); }
+    //public void update(int text) { this.text = Integer.toString(text); }
 
     @Override
     public void draw(Graphics g){

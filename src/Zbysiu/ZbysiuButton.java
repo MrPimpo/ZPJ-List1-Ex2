@@ -1,3 +1,5 @@
+package Zbysiu;
+
 import java.awt.*;
 
 public class ZbysiuButton extends ZbysiuComponent {

@@ -1,3 +1,6 @@
+package Zbysiu;
+
+import main.MatrixO;
 import java.awt.*;
 
 public class ZbysiuEditTab extends ZbysiuTab {
@@ -21,9 +24,33 @@ public class ZbysiuEditTab extends ZbysiuTab {
             }
     }
 
+    boolean intercepts(Point p){
+        if (p.x<iX)
+            return false;
+        if (p.y<iY)
+            return false;
+        if (p.x>iX+(val[0].length*cW))
+            return false;
+        if (p.y>iY+(val.length)*cH)
+            return false;
+        return true;
+    }
+
+    void select(Point p){
+        int relX = p.x - iX;
+        int relY = p.y - iY;
+        editCol = ( relX / getCellWidth() ) % val[0].length;
+        editRow = ( relY / getCellHeight() ) % val.length;
+    }
+
+    void cut(){
+        val[editRow][editCol] = val[editRow][editCol].substring(0, val[editRow][editCol].length() - 1);
+    }
+
     void addChar(char ch){
         String cellEdition = val[editRow][editCol];
         switch (ch) {
+            case '0':
             case '1':
             case '2':
             case '3':
@@ -33,17 +60,21 @@ public class ZbysiuEditTab extends ZbysiuTab {
             case '7':
             case '8':
             case '9':
-                if (cellEdition.startsWith("0"))
+                if (cellEdition.equals("0"))
                     cellEdition = "" + ch;
                 else
                     cellEdition = cellEdition + ch;
                 break;
             case ',':
             case '.':
-                if (cellEdition == "")
+                if (cellEdition.isEmpty())
                     cellEdition = "0.";
                 else if (!cellEdition.contains("."))
                     cellEdition = cellEdition + ".";
+                break;
+            case '-':
+                if (cellEdition.isEmpty())
+                    cellEdition = "-";
                 break;
         }
         val[editRow][editCol] = cellEdition;
@@ -62,6 +93,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
         return val[editRow][editCol];
     }
 
+    @Override
     MatrixO getMatrix() {
         for (int x=0; x<val[0].length; x++)
             for (int y=0; y<val.length; y++){
