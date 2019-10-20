@@ -73,13 +73,15 @@ public class MatrixO {
             for (int y=0; y<m; y++){
                 matrixFinal.matrix[x][y] = this.matrix[x][y] + matrixSecnd.matrix[x][y];
             }
-        System.out.println();
-        System.out.println("Dodano macierz: ");
-        printM();
-        System.out.println("Do macierzy:");
-        matrixSecnd.printM();
-        System.out.println("Wynikiem dodawania otrzymano macierz:");
-        matrixFinal.printM();
+        { // --------- Printing --------- //
+            System.out.println();
+            System.out.println("Dodano macierz: ");
+            printM();
+            System.out.println("Do macierzy:");
+            matrixSecnd.printM();
+            System.out.println("Wynikiem dodawania otrzymano macierz:");
+            matrixFinal.printM();
+        }
         return (matrixFinal);
     }
 
@@ -87,7 +89,10 @@ public class MatrixO {
         MatrixO matrixFinal = new MatrixO(n,m);
         for (int x=0; x<n; x++)
             for (int y=0; y<m; y++){
-                matrixFinal.matrix[x][y] = -this.matrix[x][y];
+                if ((int)this.matrix[x][y]!=0)
+                    matrixFinal.matrix[x][y] = -this.matrix[x][y];
+                else
+                    matrixFinal.matrix[x][y] = this.matrix[x][y];
             }
         return (matrixFinal);
     }
@@ -98,6 +103,15 @@ public class MatrixO {
             for (int y=0; y<m; y++){
                 matrixFinal.matrix[x][y] = this.matrix[x][y] - matrixSecnd.matrix[x][y];
             }
+        { // --------- Printing --------- //
+            System.out.println();
+            System.out.println("Od macierzy: ");
+            printM();
+            System.out.println("Odjęto macierz:");
+            matrixSecnd.printM();
+            System.out.println("Wynikiem odejmowania otrzymano macierz:");
+            matrixFinal.printM();
+        }
         return (matrixFinal);
     }
 

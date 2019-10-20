@@ -8,7 +8,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
     private int editCol, editRow;
     ZbysiuEditTab(int cellWidth, int cellHeight) {
         super(cellWidth, cellHeight);
-        iX=5;
+        iX=105;
         iY=5;
     }
 
@@ -31,9 +31,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
             return false;
         if (p.x>iX+(val[0].length*cW))
             return false;
-        if (p.y>iY+(val.length)*cH)
-            return false;
-        return true;
+        return p.y <= iY + (val.length) * cH;
     }
 
     void select(Point p){
@@ -108,7 +106,7 @@ public class ZbysiuEditTab extends ZbysiuTab {
     public void draw(Graphics g){
         String[][] matrix = val;
         g.setColor(Color.LIGHT_GRAY);
-        g.drawRect(iX,iY,iX-5+matrix[0].length*getCellWidth(),iY-5+matrix.length*getCellHeight());
+        g.drawRect(iX,iY,matrix[0].length*getCellWidth(),matrix.length*getCellHeight());
         for (int x = 1; x < matrix[0].length; x++)
             g.drawLine(iX+x*getCellWidth(),iY,iX+x*getCellWidth(),iY+matrix.length*getCellHeight());
 

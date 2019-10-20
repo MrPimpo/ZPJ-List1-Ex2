@@ -102,10 +102,10 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
         simulation = (byte)sim;
         tabEdit.setMatrix(new MatrixO(height, width, ""));
         cellEdition = "";
-        int W = width * tabEdit.getCellWidth() + 35, H = height * tabEdit.getCellHeight() + 85;
+        int W = width * tabEdit.getCellWidth() + 135, H = height * tabEdit.getCellHeight() + 50;
         padre.setSize(W, H);
         padre.setTitle("Macierz " + width + "x" + height);
-        btnReady = new ZbysiuButton(W / 2 - 30, H - 75, 60, 30, "Zrobione");
+        btnReady = new ZbysiuButton(10, H - 75, 90, 30, "Zrobione");
         this.repaint();
     }
 
@@ -158,6 +158,11 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                     editTab(5,m);
                     System.out.print("Klik w dodawanko ");
                 }
+                if (btnSubtract.intercepts(p)) {
+                    MatrixO m = tab.getMatrix();
+                    editTab(6,m);
+                    System.out.print("Klik w odejmowawanko ");
+                }
             }break;
             case 2: case 4: { // ----- Size settings ----- //
                 if (btnWidthIncrease.intercepts(p)) {
@@ -199,7 +204,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                     }
                 }
             }break;
-            case 3: case 5:
+            case 3: case 5: case 6:
                 if (tabEdit.intercepts(p)) {
                     tabEdit.select(p);
                     repaint();
@@ -220,6 +225,17 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                             MatrixO m1 = tab.getMatrix();
                             MatrixO m2 = tabEdit.getMatrix();
                             MatrixO m3 = m1.add(m2);
+                            showTab(m3);
+                            //tab.setCellWidth(50);
+                            System.out.print("Klik w koniec edycji ");
+                        }
+                    }
+                    break;
+                    case 6: { // ----- Fill in table ----- //
+                        if (btnReady.intercepts(p)) {
+                            MatrixO m1 = tab.getMatrix();
+                            MatrixO m2 = tabEdit.getMatrix();
+                            MatrixO m3 = m1.sub(m2);
                             showTab(m3);
                             //tab.setCellWidth(50);
                             System.out.print("Klik w koniec edycji ");
@@ -283,7 +299,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                 lblHeight.draw(g);
                 btnOK.draw(g);
                 break;
-            case 3: case 5:
+            case 3: case 5: case 6:
                 tabEdit.draw(g);
                 btnReady.draw(g);
                 break;
@@ -298,7 +314,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
 
         @Override
         public void keyPressed(KeyEvent e) {
-            if ((madre.getSimulation() == 3) || (madre.getSimulation() == 5)) {
+            if ((madre.getSimulation() == 3) || (madre.getSimulation() == 5)|| (madre.getSimulation() == 6)) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     madre.tabEdit.editNext(madre.cellEdition);
                 } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
