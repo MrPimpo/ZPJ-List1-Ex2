@@ -42,46 +42,15 @@ public class ZbysiuEditTab extends ZbysiuTab {
     }
 
     void cut(){
-        val[editRow][editCol] = val[editRow][editCol].substring(0, val[editRow][editCol].length() - 1);
+        val[editRow][editCol] = ZbysiuEditor.cut(val[editRow][editCol]);
     }
 
     void addChar(char ch){
-        String cellEdition = val[editRow][editCol];
-        switch (ch) {
-            case '0':
-            case '1':
-            case '2':
-            case '3':
-            case '4':
-            case '5':
-            case '6':
-            case '7':
-            case '8':
-            case '9':
-                if (cellEdition.equals("0"))
-                    cellEdition = "" + ch;
-                else if (cellEdition.equals("-0"))
-                    cellEdition = "-" + ch;
-                else
-                    cellEdition = cellEdition + ch;
-                break;
-            case ',':
-            case '.':
-                if (cellEdition.isEmpty())
-                    cellEdition = "0.";
-                else if (!cellEdition.contains("."))
-                    cellEdition = cellEdition + ".";
-                break;
-            case '-':
-                if ((cellEdition.isEmpty()) || cellEdition.equals("0"))
-                    cellEdition = "-";
-                break;
-        }
-        val[editRow][editCol] = cellEdition;
+        //String cellEdition = val[editRow][editCol];
+        val[editRow][editCol] = ZbysiuEditor.addChar(val[editRow][editCol],ch);
     }
 
-    String editNext(String fin){
-        //double dFin = Double.parseDouble(fin);
+    String editNext(){
         editCol++;
         if (editCol >= val[0].length) {
             editCol=0;

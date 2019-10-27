@@ -8,6 +8,7 @@ import java.util.Random;
 public class MatrixO {
     private double[][] matrix;
     private int n, m;
+    private MrHigher mrHigher;
 
     public MatrixO(){
         Random Roman = new Random();
@@ -30,6 +31,11 @@ public class MatrixO {
 
     public int getM() { return m; }
     public int getN() { return n; }
+
+    public void checkIfHigher(double val){
+        mrHigher = new MrHigher(matrix, val);
+        print_g(val);
+    }
     public void set(int x, int y, double val){
         matrix[x][y] = val;
     }
@@ -39,6 +45,7 @@ public class MatrixO {
     }
 
     private double[][] generate(int columns, int rows, int range){
+        mrHigher = null;
         double[][] _matrix = new double[columns][rows];
         Random radek = new Random();
         for (int x=0; x<columns; x++)
@@ -64,6 +71,16 @@ public class MatrixO {
         }
         MatrixO matrixFinal = new MatrixO(m1.length,m2[0].length);
         matrixFinal.matrix = mFinal;
+
+        { // --------- Printing --------- //
+            System.out.println();
+            System.out.println("Pomnożono macież: ");
+            printM();
+            System.out.println("Przez macierz:");
+            matrixSecond.printM();
+            System.out.println("Wynikiem mnożenia jest macierz:");
+            matrixFinal.printM();
+        }
         return matrixFinal;
     }
 
@@ -79,7 +96,7 @@ public class MatrixO {
             printM();
             System.out.println("Do macierzy:");
             matrixSecnd.printM();
-            System.out.println("Wynikiem dodawania otrzymano macierz:");
+            System.out.println("Wynikiem dodawania jest macierz:");
             matrixFinal.printM();
         }
         return (matrixFinal);
@@ -109,7 +126,7 @@ public class MatrixO {
             printM();
             System.out.println("Odjęto macierz:");
             matrixSecnd.printM();
-            System.out.println("Wynikiem odejmowania otrzymano macierz:");
+            System.out.println("Wynikiem odejmowania jest macierz:");
             matrixFinal.printM();
         }
         return (matrixFinal);
@@ -188,12 +205,37 @@ public class MatrixO {
         }
     }
 
+    private void print_g(double wart){
+        System.out.println("Z macierzy: ");
+        printM();
+        System.out.println("Wartości większe niż "+wart+" to: ");
+        for (double[] doubles : matrix)
+            for (int x = 0; x < matrix[0].length; x++)
+                if (doubles[x]>wart) {
+                    java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
+                    String s = df.format(doubles[x]) + "";
+                    System.out.print(s+"; ");
+                }
+        System.out.println();
+    }
+
     public void draw(Graphics g, ZbysiuTab t){
         g.setColor(Color.LIGHT_GRAY);
         g.drawRect(t.getX(),t.getY(),matrix[0].length*t.getCellWidth(),matrix.length*t.getCellHeight());
         for (int x = 1; x < matrix[0].length; x++)
             g.drawLine(t.getX()+x*t.getCellWidth(),t.getY(),t.getX()+x*t.getCellWidth(),t.getY()+matrix.length*t.getCellHeight());
 
+        g.setColor(Color.gray);
+        if (mrHigher!=null) {
+            for (int y = 0; y < matrix.length; y++)
+                for (int x = 0; x < matrix[y].length; x++)
+                    if (mrHigher.isOn(y,x)){
+                        g.fillRect(t.getX()+1+x*t.getCellWidth(),t.getY()+1+y*t.getCellHeight(),t.getCellWidth()-2,t.getCellHeight()-2);
+                    }
+
+        }
+
+        g.setColor(Color.LIGHT_GRAY);
         for (int y=0; y<matrix.length; y++) {
             String s;
             g.drawLine(t.getX(),t.getY()+y*t.getCellHeight(),t.getX()+matrix[0].length*t.getCellWidth(),t.getY()+y*t.getCellHeight());
@@ -205,6 +247,22 @@ public class MatrixO {
                     s = " "+s;
                 g.drawString(s,t.getX()+5+x*t.getCellWidth(),(int)(t.getY()+(y+(double)2/3)*t.getCellHeight()));
             }
+        }
+    }
+
+    private class MrHigher {
+        private boolean[][] matrix;
+
+        MrHigher(double[][] matrix, double val) {
+            this.matrix = new boolean[matrix.length][matrix[0].length];
+            for (int y = 0; y < matrix.length; y++)
+                for (int x = 0; x < matrix[y].length; x++) {
+                    this.matrix[y][x] = (matrix[y][x] > val);
+                }
+        }
+
+        boolean isOn(int column, int row) {
+            return (matrix[column][row]);
         }
     }
 }
