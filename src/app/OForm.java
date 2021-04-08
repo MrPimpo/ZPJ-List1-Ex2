@@ -1,16 +1,16 @@
-package Zbysiu;
+package app;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ZbysiuForm extends JFrame {
+public class OForm extends JFrame {
 
-    public ZbysiuForm(){
+    public OForm(){
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
 
-        ZbysiuPanel panel = new ZbysiuPanel(this);
+        OPanel panel = new OPanel(this);
         GridBagLayout layout = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         panel.setLayout(layout);

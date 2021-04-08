@@ -1,10 +1,10 @@
-package Zbysiu;
+package app;
 
 import java.awt.*;
 
-public class ZbysiuLabel extends ZbysiuComponent {
+public class OLabel extends OComponent {
     private String text;
-    ZbysiuLabel(int x, int y, String text){
+    OLabel(int x, int y, String text){
         super(x,y);
         this.text = text;
     }

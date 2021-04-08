@@ -1,12 +1,12 @@
-package Zbysiu;
+package app;
 
 import java.awt.*;
 
-public class ZbysiuComponent {
+public class OComponent {
     //protected String id;
     int iX, iY;
 
-    ZbysiuComponent(int x, int y){
+    OComponent(int x, int y){
         iX = x;
         iY = y;
     }

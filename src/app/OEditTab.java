@@ -1,12 +1,12 @@
-package Zbysiu;
+package app;
 
 import main.MatrixO;
 import java.awt.*;
 
-public class ZbysiuEditTab extends ZbysiuTab {
+public class OEditTab extends OTab {
     private String[][] val;
     private int editCol, editRow;
-    ZbysiuEditTab(int cellWidth, int cellHeight) {
+    OEditTab(int cellWidth, int cellHeight) {
         super(cellWidth, cellHeight);
         iX=105;
         iY=5;
@@ -42,12 +42,12 @@ public class ZbysiuEditTab extends ZbysiuTab {
     }
 
     void cut(){
-        val[editRow][editCol] = ZbysiuEditor.cut(val[editRow][editCol]);
+        val[editRow][editCol] = OEditor.cut(val[editRow][editCol]);
     }
 
     void addChar(char ch){
         //String cellEdition = val[editRow][editCol];
-        val[editRow][editCol] = ZbysiuEditor.addChar(val[editRow][editCol],ch);
+        val[editRow][editCol] = OEditor.addChar(val[editRow][editCol],ch);
     }
 
     String editNext(){

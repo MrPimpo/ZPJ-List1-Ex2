@@ -1,13 +1,13 @@
-package Zbysiu;
+package app;
 
 import main.MatrixO;
 import java.awt.*;
 
-public class ZbysiuTab extends ZbysiuComponent {
+public class OTab extends OComponent {
     int cW, cH;
     MatrixO matrix;
 
-    ZbysiuTab(int cellWidth, int cellHeight){
+    OTab(int cellWidth, int cellHeight){
         super(5,5);
         iX=165; iY=5;
         cW = cellWidth;

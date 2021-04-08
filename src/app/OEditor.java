@@ -1,6 +1,6 @@
-package Zbysiu;
+package app;
 
-class ZbysiuEditor {
+class OEditor {
     static String addChar(String string, char ch){
         String cellEdition = string;
         switch (ch) {

@@ -1,19 +1,19 @@
 package main;
 
-import Zbysiu.ZbysiuTab;
+import app.OTab;
 
 import java.awt.*;
 import java.util.Random;
 
 public class MatrixO {
     private double[][] matrix;
-    private int n, m;
+    private final int n, m;
     private MrHigher mrHigher;
 
     public MatrixO(){
-        Random Roman = new Random();
-        this.n = 2 + Roman.nextInt(9);
-        this.m = 2 + Roman.nextInt(9);
+        Random Randy = new Random();
+        this.n = 2 + Randy.nextInt(9);
+        this.m = 2 + Randy.nextInt(9);
         matrix = generate(n,m,20);
     }
 
@@ -55,7 +55,7 @@ public class MatrixO {
         return (_matrix);
     }
 
-    public MatrixO mult(MatrixO matrixSecond) {
+    public MatrixO multiply(MatrixO matrixSecond) {
         double[][] m1 = matrix, m2 = matrixSecond.matrix,
                 mFinal = new double[m1.length][m2[0].length];
         if (m1[0].length == m2.length) {
@@ -84,18 +84,18 @@ public class MatrixO {
         return matrixFinal;
     }
 
-    public MatrixO add(MatrixO matrixSecnd){
+    public MatrixO add(MatrixO matrix2){
         MatrixO matrixFinal = new MatrixO(n,m);
         for (int x=0; x<n; x++)
             for (int y=0; y<m; y++){
-                matrixFinal.matrix[x][y] = this.matrix[x][y] + matrixSecnd.matrix[x][y];
+                matrixFinal.matrix[x][y] = this.matrix[x][y] + matrix2.matrix[x][y];
             }
         { // --------- Printing --------- //
             System.out.println();
             System.out.println("Dodano macierz: ");
             printM();
             System.out.println("Do macierzy:");
-            matrixSecnd.printM();
+            matrix2.printM();
             System.out.println("Wynikiem dodawania jest macierz:");
             matrixFinal.printM();
         }
@@ -219,7 +219,7 @@ public class MatrixO {
         System.out.println();
     }
 
-    public void draw(Graphics g, ZbysiuTab t){
+    public void draw(Graphics g, OTab t){
         g.setColor(Color.LIGHT_GRAY);
         g.drawRect(t.getX(),t.getY(),matrix[0].length*t.getCellWidth(),matrix.length*t.getCellHeight());
         for (int x = 1; x < matrix[0].length; x++)
@@ -240,9 +240,9 @@ public class MatrixO {
             String s;
             g.drawLine(t.getX(),t.getY()+y*t.getCellHeight(),t.getX()+matrix[0].length*t.getCellWidth(),t.getY()+y*t.getCellHeight());
             for (int x = 0; x < matrix[y].length; x++){
-                //java.text.DecimalFormat df=new java.text.DecimalFormat("0.00");
-                //s=df.format(matrix[y][x])+"";
-                s=matrix[y][x]+"";
+                java.text.DecimalFormat df=new java.text.DecimalFormat("0.00");
+                s=df.format(matrix[y][x])+"";
+                //s=matrix[y][x]+"";
                 if (!s.startsWith("-"))
                     s = " "+s;
                 g.drawString(s,t.getX()+5+x*t.getCellWidth(),(int)(t.getY()+(y+(double)2/3)*t.getCellHeight()));
@@ -250,8 +250,8 @@ public class MatrixO {
         }
     }
 
-    private class MrHigher {
-        private boolean[][] matrix;
+    private static class MrHigher {
+        private final boolean[][] matrix;
 
         MrHigher(double[][] matrix, double val) {
             this.matrix = new boolean[matrix.length][matrix[0].length];

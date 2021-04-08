@@ -1,12 +1,12 @@
-package Zbysiu;
+package app;
 
 import java.awt.*;
 
-public class ZbysiuButton extends ZbysiuComponent {
-    private int iW, iH;
-    private String text;
+public class OButton extends OComponent {
+    private final int iW, iH;
+    private final String text;
 
-    ZbysiuButton(int x, int y, int width, int height, String text){
+    OButton(int x, int y, int width, int height, String text){
         super(x,y);
         iW = width;
         iH = height;

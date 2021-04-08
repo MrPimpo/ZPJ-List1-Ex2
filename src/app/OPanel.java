@@ -1,4 +1,4 @@
-package Zbysiu;
+package app;
 
 import main.MatrixO;
 
@@ -6,56 +6,57 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class ZbysiuPanel extends JPanel implements MouseListener{
-    private ZbysiuForm padre;
+public class OPanel extends JPanel implements MouseListener{
+    private final OForm padre;
     private byte simulation;
     // ----- SIM 0 ----- // ----- Main Menu ----- //
-    private ZbysiuLabel lblQuestion;
-    private ZbysiuButton btnClassic, btnCustom, btnMostCustom;
+    private final OLabel lblQuestion;
+    private final OButton btnClassic, btnCustom, btnMostCustom;
     // ----- SIM 1 ----- // ----- "Final" tab ----- //
-    private ZbysiuTab tab;
-    private ZbysiuButton btnReturno, btnInverse, btnAdd, btnSubtract, btnMultiply, btnGet;
-    private ZbysiuLabel lblDet;
+    private OTab tab;
+    private OButton btnReturno, btnInverse, btnAdd, btnSubtract, btnMultiply, btnGet;
+    private OLabel lblDet;
     // ----- SIM 2,4,8 ----- //  ----- Size choosing ----- //
-    private ZbysiuLabel lblWidth, lblHeight;
-    private ZbysiuButton btnWidthIncrease, btnWidthDecrease, btnHeightIncrease, btnHeightDecrease;
-    private ZbysiuButton btnOK;
+    private final OLabel lblWidth, lblHeight;
+    private final OButton btnWidthIncrease, btnWidthDecrease, btnHeightIncrease, btnHeightDecrease;
+    private final OButton btnOK;
     private int width, height;
     // ----- SIM 3,5 ----- //  ----- Edit Tab ----- //
-    private ZbysiuEditTab tabEdit;
-    private ZbysiuButton btnReady;
+    private final OEditTab tabEdit;
+    private OButton btnReady;
     // ----- SIM 9 ----- //  ----- Getting V ----- //
     private String V;
-    private ZbysiuLabel lblV;
-    private ZbysiuButton btnFine;
+    private final OLabel lblV;
+    private final OButton btnFine;
 
-    ZbysiuPanel(ZbysiuForm papa){
+    OPanel(OForm papa){
         padre = papa;
         simulation = 0;
 
         // ----- SIM 0 ----- // ----- Main Menu ----- //
-        padre.setSize(520,150);
-        padre.setTitle("Wybierz macierz");
-        lblQuestion = new ZbysiuLabel(25, 20,"Wybierz macierz:");
-        btnClassic = new ZbysiuButton(25,40,125,40,"Macierz losowa");
-        btnCustom = new ZbysiuButton(175,40,125,40,"Inne wymiary");
-        btnMostCustom = new ZbysiuButton(325,40,150,40, "Sam se wpisuj");
+        padre.setSize(260,250);
+        padre.setTitle("Choose matrix");
+        lblQuestion = new OLabel(15, 15,"What matrix are you interested in?");
+        btnClassic = new OButton(15,45,210,40,"Random size, random content");
+        btnCustom = new OButton(15,95,210,40,"NxM, random content");
+        btnMostCustom = new OButton(15,145,210,40, "Custom");
         // ----- SIM 1 ----- // ----- Final table ----- //
-        tab = new ZbysiuTab(140,25);
+        tab = new OTab(50,25);
         // ----- SIM 2,4 ----- // ----- Size settings ----- //
-        btnWidthDecrease = new ZbysiuButton(10,10,20,20,"<");
-        lblWidth = new ZbysiuLabel(40,10,"kolumny: ");
-        btnWidthIncrease = new ZbysiuButton(150,10,20,20,">");
-        btnHeightDecrease = new ZbysiuButton(10,30,20,20,"<");
-        lblHeight = new ZbysiuLabel(40,30,"wiersze: ");
-        btnHeightIncrease = new ZbysiuButton(150,30,20,20,">");
-        btnOK = new ZbysiuButton(10,60,160,30,"OK");
+        int leftMargin=60;
+        btnWidthDecrease = new OButton(leftMargin,10,20,20,"<");
+        lblWidth = new OLabel(leftMargin+30,10,"cols: ");
+        btnWidthIncrease = new OButton(leftMargin+140,10,20,20,">");
+        btnHeightDecrease = new OButton(leftMargin,30,20,20,"<");
+        lblHeight = new OLabel(leftMargin+30,30,"rows: ");
+        btnHeightIncrease = new OButton(leftMargin+140,30,20,20,">");
+        btnOK = new OButton(leftMargin,60,160,30,"OK");
         // ----- SIM 3 ----- // ----- Fil in table ----- //
-        tabEdit = new ZbysiuEditTab(50,30);
+        tabEdit = new OEditTab(50,30);
         // ----- SIM 9 ----- //
         V="";
-        btnFine = new ZbysiuButton(10,60,160,30,"OK");
-        lblV = new ZbysiuLabel(10,10,"Wartość = ");
+        btnFine = new OButton(10,60,160,30,"OK");
+        lblV = new OLabel(10,10,"Value = ");
 
         setFocusable(true);
         addMouseListener(this);
@@ -75,20 +76,20 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
 
     private void showTab(MatrixO matrixO){
         simulation = 1;
-        tab = new ZbysiuTab(140,25);
+        tab = new OTab(50,25);
         width = matrixO.getM();
         height = matrixO.getN();
         tab.setMatrix(matrixO);
         int W = width * tab.getCellWidth() + 188, H = Math.max(285,height * tab.getCellHeight() + 50);
         padre.setSize(W, H);
-        padre.setTitle("Macierz " + width + "x" + height);
-        btnReturno = new ZbysiuButton(10, H - 75, 100, 30, "Wracaj");
-        btnInverse = new ZbysiuButton(10, 35, 100, 30, "Zmień znak");
-        btnAdd = new ZbysiuButton(10, 70, 100, 30, "Dodaj");
-        btnSubtract = new ZbysiuButton(10, 105, 100, 30, "Odejmij");
-        btnMultiply = new ZbysiuButton(10, 140, 100, 30, "Przemnóż");
-        btnGet = new ZbysiuButton(10, 175, 100, 30, "Pokaż powyżej");
-        lblDet = new ZbysiuLabel(10, 10,"Brak wyznacznika");
+        padre.setTitle("Matrix " + width + "x" + height);
+        btnReturno = new OButton(10, H - 75, 150, 30, "Back");
+        btnInverse = new OButton(10, 35, 150, 30, "Invert");
+        btnAdd = new OButton(10, 70, 150, 30, "Add");
+        btnSubtract = new OButton(10, 105, 150, 30, "Subtract");
+        btnMultiply = new OButton(10, 140, 150, 30, "Multiply");
+        btnGet = new OButton(10, 175, 150, 30, "Print values larger than...");
+        lblDet = new OLabel(10, 10,"No determinant");
         if (matrixO.isSquare()) {
             java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
             String s = df.format(matrixO.det()) + "";
@@ -107,112 +108,114 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
         tabEdit.setMatrix(new MatrixO(height, width, ""));
         int W = width * tabEdit.getCellWidth() + 135, H = height * tabEdit.getCellHeight() + 50;
         padre.setSize(W, H);
-        padre.setTitle("Macierz " + width + "x" + height);
-        btnReady = new ZbysiuButton(10, H - 75, 90, 30, "Zrobione");
+        padre.setTitle("matrix " + width + "x" + height);
+        btnReady = new OButton(10, H - 75, 90, 30, "Done");
         this.repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         Point p = new Point(e.getX(),e.getY());
-        System.out.print("Sym: "+simulation+". KlikuKllik. ");
+        System.out.print("Sym: "+simulation+". MouseClick -> ");
         switch(simulation){
             case 0: { // ----- Main Menu ----- //
                 if (btnClassic.intercepts(p)) {
                     showTab(new MatrixO());
-                    System.out.print("Klik w losowy ");
+                    System.out.print("Main-random(size&content) ");
                 }
                 if (btnCustom.intercepts(p)) {
                     simulation = 2;
                     width = 10;
                     height = 10;
-                    lblWidth.update("kolumny: 10");
-                    lblHeight.update("wiersze: 10");
-                    padre.setSize(200, 150);
+                    lblWidth.update("cols: 10");
+                    lblHeight.update("rows: 10");
+                    padre.setSize(300, 150);
+                    padre.setTitle("Choose matrix size");
                     this.repaint();
-                    System.out.print("Klik w inny ");
+                    System.out.print("Main-custom-size|random-content ");
                 }
                 if (btnMostCustom.intercepts(p)) {
                     simulation = 4;
                     width = 5;
                     height = 5;
-                    lblWidth.update("kolumny: 5");
-                    lblHeight.update("wiersze: 5");
-                    padre.setSize(200, 150);
+                    lblWidth.update("cols: 5");
+                    lblHeight.update("rows: 5");
+                    padre.setSize(300, 150);
+                    padre.setTitle("Choose matrix size");
                     this.repaint();
-                    System.out.print("Klik w najinniejszy ");
+                    System.out.print("Main-custom ");
                 }
             }break;
             case 1: { // ----- Final table ----- //
                 if (btnReturno.intercepts(p)) {
                     simulation = 0;
-                    padre.setSize(520, 150);
-                    padre.setTitle("Wybierz macierz");
+                    padre.setSize(260, 250);
+                    padre.setTitle("Choose matrix");
                     this.repaint();
-                    System.out.print("Klik w powrotny ");
+                    System.out.print("TabView-back ");
                 }
                 // btnAdd, btnSubtract, btnMultiply, btnGet;
                 if (btnInverse.intercepts(p)) {
                     showTab(tab.getMatrix().odd());
-                    System.out.print("Klik w odwracanko ");
+                    System.out.print("TabView-inverse ");
                 }
                 if (btnAdd.intercepts(p)) {
                     MatrixO m = tab.getMatrix();
                     editTab(5,m);
-                    System.out.print("Klik w dodawanko ");
+                    System.out.print("TabView-addition ");
                 }
                 if (btnSubtract.intercepts(p)) {
                     MatrixO m = tab.getMatrix();
                     editTab(6,m);
-                    System.out.print("Klik w odejmowawanko ");
+                    System.out.print("TabView-subtraction ");
                 }
                 if (btnMultiply.intercepts(p)) {
                     simulation = 8;
                     MatrixO m = tab.getMatrix();
                     height = m.getM();
                     width = m.getN(); // ten jest możliwy do zmiany
-                    lblWidth.update("kolumny: "+width);
-                    lblHeight.update("wiersze: "+height);
-                    padre.setSize(200, 150);
+                    lblWidth.update("cols: "+width);
+                    lblHeight.update("rows: "+height);
+                    padre.setSize(300, 150);
                     this.repaint();
-                    System.out.print("Klik w inny ");
+                    System.out.print("Other ");
                     //MatrixO m = tab.getMatrix();
                     //editTab(7,m);
                     //System.out.print("Klik w mnożonko ");
                 }
                 if (btnGet.intercepts(p)) {
                     simulation = 9;
-                    lblV.update("Wartość ="+V);
+                    lblV.update("Val ="+V);
                     padre.setSize(200, 150);
-                    padre.setTitle("Pokaż pola powyżej...");
+                    padre.setTitle("Values above "+V+": ");
                     this.repaint();
-                    System.out.print("Klik w dziwne coś ");
+                    System.out.print("Something ");
                 }
             }break;
             case 2: case 4: case 8: { // ----- Size settings ----- //
                 if (btnWidthIncrease.intercepts(p)) {
                     width++;
-                    lblWidth.update("kolumny: " + width);
+                    lblWidth.update("cols: " + width);
                     this.repaint();
                 }
                 if (btnWidthDecrease.intercepts(p)) {
                     width--;
                     if (width < 1)
                         width = 1;
-                    lblWidth.update("kolumny: " + width);
+                    lblWidth.update("cols: " + width);
                     this.repaint();
                 }
                 if (simulation!=8) {
                     if (btnHeightIncrease.intercepts(p)) {
                         height++;
-                        lblHeight.update("wiersze: " + height);
+                        lblHeight.update("rows: " + height);
                         this.repaint();
                     }
                     if (btnHeightDecrease.intercepts(p)) {
                         height--;
                         if (height < 1)
                             height = 1;
-                        lblHeight.update("wiersze: " + height);
+                        lblHeight.update("rows: " + height);
                         this.repaint();
                     }
                 }
@@ -220,15 +223,15 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                     switch (simulation) {
                         case 2:{
                             showTab(new MatrixO(height, width));
-                            System.out.print("Klik w OK ");
+                            System.out.print("OK ");
                         }break;
                         case 4:{
                             editTab(3);
-                            System.out.print("Klik w OK ");
+                            System.out.print("OK ");
                         }break;
                         case 8: {
                             editTab(7);
-                            System.out.print("Klik w OK ");
+                            System.out.print("OK ");
                         }break;
                     }
                 }
@@ -237,7 +240,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                 if (tabEdit.intercepts(p)) {
                     tabEdit.select(p);
                     repaint();
-                    System.out.print("Klik w tabelkie ");
+                    System.out.print("Tab-click ");
                     //tab.setCellWidth(50);
                 }
                 switch (simulation) {
@@ -245,7 +248,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                         if (btnReady.intercepts(p)) {
                             showTab(tabEdit.getMatrix());
                             //tab.setCellWidth(50);
-                            System.out.print("Klik w koniec edycji ");
+                            System.out.print("Edit-fin ");
                         }
                     }
                     break;
@@ -256,7 +259,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                             MatrixO m3 = m1.add(m2);
                             showTab(m3);
                             //tab.setCellWidth(50);
-                            System.out.print("Klik w koniec edycji dodawania ");
+                            System.out.print("Addition-edit-fin ");
                         }
                     }
                     break;
@@ -267,7 +270,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                             MatrixO m3 = m1.sub(m2);
                             showTab(m3);
                             //tab.setCellWidth(50);
-                            System.out.print("Klik w koniec edycji odejmowania ");
+                            System.out.print("Subtraction-edin-fin ");
                         }
                     }
                     break;
@@ -275,10 +278,10 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                         if (btnReady.intercepts(p)) {
                             MatrixO m1 = tab.getMatrix();
                             MatrixO m2 = tabEdit.getMatrix();
-                            MatrixO m3 = m1.mult(m2);
+                            MatrixO m3 = m1.multiply(m2);
                             showTab(m3);
                             //tab.setCellWidth(50);
-                            System.out.print("Klik w koniec edycji mnożenia ");
+                            System.out.print("Multiplication-edit-fin ");
                         }
                     }
                     break;
@@ -320,7 +323,7 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
         Graphics2D g2d = (Graphics2D) g;
         g.setColor(Color.DARK_GRAY);
         g.fillRect(0, 0, getWidth(), getHeight());
-        System.out.println(" ==> Sym: "+simulation);
+        System.out.println(" ==> Sim: "+simulation);
 
         switch(simulation){
             case 0:
@@ -361,8 +364,8 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
     }
 
     private static class KListener extends KeyAdapter {
-        ZbysiuPanel madre;
-        KListener(ZbysiuPanel mama){
+        OPanel madre;
+        KListener(OPanel mama){
             madre = mama;
         }
 
@@ -385,16 +388,16 @@ public class ZbysiuPanel extends JPanel implements MouseListener{
                     m.checkIfHigher(val);
                     madre.showTab(m);
                 } else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-                    madre.V = ZbysiuEditor.cut(madre.V);
-                    madre.lblV.update("Wartość = " + madre.V);
+                    madre.V = OEditor.cut(madre.V);
+                    madre.lblV.update("Val = " + madre.V);
                 } else {
                     char ch = e.getKeyChar();
-                    madre.V = ZbysiuEditor.addChar(madre.V,ch);
-                    madre.lblV.update("Wartość = " + madre.V);
+                    madre.V = OEditor.addChar(madre.V,ch);
+                    madre.lblV.update("Val = " + madre.V);
                 }
                 madre.repaint();
             }
-            System.out.println("KlawiszuKlik");
+            System.out.println("Button clicked: ");
         }
     }
 }
